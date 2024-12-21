@@ -1,4 +1,5 @@
 import os
+import subprocess
 import file
 
 def clearTerminal():
@@ -11,7 +12,8 @@ def mainMenu():
     print('1. List tasks')
     print('2. Add task')
     print('3. Delete task')
-    print('4. Exit the application')
+    print('4. Sync task changes to GitHub')
+    print('5. Exit the application')
 
 
 def listTasks():
@@ -34,6 +36,17 @@ def deleteTask():
     file.deleteTask()
 
 
+def syncTasks():
+    clearTerminal()
+    answer = input('Are you sure you want to push the changes to the GitHub repo? y/n\n')
+    if answer.lower() == 'y':
+        subprocess.run(['git','add', 'tasks.json'])
+        subprocess.run(['git','commit', '-m', "'Automatic commit, updated tasks.json'"])
+        subprocess.run(['git','push'])
+    elif answer.lower() == 'n':
+        print('Canceled the sync of tasks changes.')
+
+
 def main():
     while True:
         mainMenu()
@@ -47,6 +60,8 @@ def main():
             case '3':
                 deleteTask()
             case '4':
+                syncTasks()
+            case '5':
                 exit()
             case _:
                 os.system('cls')
