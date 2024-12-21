@@ -1,10 +1,15 @@
 import os
+import file
 
 tasks = ['ML algorithms', 'neural networks', 'LLM']
 
-def mainMenu():
+
+def clearTerminal():
     os.system('cls')
-    print('Todo list')
+    print('Todo list\n')
+
+def mainMenu():
+    clearTerminal()
     print('Press what option you wanna do then press enter')
     print('1. List tasks')
     print('2. Add task')
@@ -13,33 +18,23 @@ def mainMenu():
 
 
 def listTasks():
-    os.system('cls')
-    for task in tasks:
-        print(f'- {task}')
+    clearTerminal()
+    tasks = file.getTasks()
+    if len(tasks) < 1:
+        print('There are no tasks.')
+    else:
+        for task in tasks:
+            print(task)
 
-    
 def addTask():
-    os.system('cls')
+    clearTerminal()
     newTask = input('Enter a new task to add to the list:\n\n')
-    tasks.append(newTask)
-    print(f'\n{newTask} was added to the list')
-
+    file.addTask(newTask)
+    
 
 def deleteTask():
-    os.system('cls')
-    localTasks = tasks
-    taskToDelete = input('Enter a what task to dekete from the list:\n\n')
-    if taskToDelete.isdigit():
-        deletedTask = localTasks[taskToDelete-1]
-        print(f'Deleting task {taskToDelete}. {deletedTask}')
-        localTasks.pop(taskToDelete - 1)
-        print(f'\nTask was successffully delete')
-    else:
-        for i in range(len(localTasks)):
-            if localTasks[i].lower() == taskToDelete.lower():
-                print(f'Deleting task{i}. {taskToDelete}')
-                localTasks.pop(i)
-                print(f'\nTask was successffully delete')
+    clearTerminal()
+    file.deleteTask()
 
 
 def main():
@@ -50,14 +45,17 @@ def main():
         match option:
             case '1':
                 listTasks()
-                input('\nPress enter to return to the main menu')
             case '2':
                 addTask()
-                input('\nPress enter to return to the main menu')
             case '3':
-                pass
+                deleteTask()
+            case '4':
+                exit()
             case _:
                 os.system('cls')
-                input('Entered a faulty value, press enter to return to main menu')
+                input('Entered a faulty value.')
+        input('Press enter to return to the main menu')
 
+    
+    
 main()
