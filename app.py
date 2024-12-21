@@ -1,9 +1,6 @@
 import os
 import file
 
-tasks = ['ML algorithms', 'neural networks', 'LLM']
-
-
 def clearTerminal():
     os.system('cls')
     print('Todo list\n')
@@ -20,7 +17,7 @@ def mainMenu():
 def listTasks():
     clearTerminal()
     tasks = file.getTasks()
-    if len(tasks) < 1:
+    if not tasks:
         print('There are no tasks.')
     else:
         for task in tasks:
@@ -57,5 +54,5 @@ def main():
         input('Press enter to return to the main menu')
 
     
-    
+
 main()

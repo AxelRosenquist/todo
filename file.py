@@ -6,7 +6,8 @@ taskfile = 'tasks.json'
 def createFile():
     localTaskFile = taskfile
     if not os.path.exists(localTaskFile):
-        open(localTaskFile, 'x')
+        with open(localTaskFile, 'w') as JSONTasks:
+            JSONTasks.write('[]')
          
 
 def getTasks() -> list[str]:
@@ -47,8 +48,11 @@ def deleteTask():
     else:
         for i in range(len(tasks)):
             if tasks[i].lower() == taskToDelete.lower():
-                print(f'Deleting task {i}. {taskToDelete}')
+                print(f'Deleting task {i + 1}. {taskToDelete}')
                 tasks.pop(i)
                 writeChanges(tasks)
-                input(f'\nTask was successffully deleted.')
-getTasks()
+                print(f'\nTask was successffully deleted.')
+                return
+        else:
+            print(f'The task {taskToDelete} does not exist.')
+
