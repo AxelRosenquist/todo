@@ -2,12 +2,12 @@ import os
 import subprocess
 import file
 
-def clearTerminal():
+def clear_terminal():
     os.system('cls')
     print('Todo list\n')
 
-def mainMenu():
-    clearTerminal()
+def main_menu():
+    clear_terminal()
     print('Press what option you wanna do then press enter')
     print('1. List tasks')
     print('2. Add task')
@@ -16,28 +16,28 @@ def mainMenu():
     print('5. Exit the application')
 
 
-def listTasks():
-    clearTerminal()
-    tasks = file.getTasks()
+def list_tasks():
+    clear_terminal()
+    tasks = file.get_tasks()
     if not tasks:
         print('There are no tasks.')
     else:
         for task in tasks:
             print(task)
 
-def addTask():
-    clearTerminal()
+def add_task():
+    clear_terminal()
     newTask = input('Enter a new task to add to the list:\n\n')
-    file.addTask(newTask)
+    file.add_task(newTask)
     
 
-def deleteTask():
-    clearTerminal()
-    file.deleteTask()
+def delete_task():
+    clear_terminal()
+    file.delete_task()
 
 
-def syncTasks():
-    clearTerminal()
+def sync_tasks():
+    clear_terminal()
     answer = input('Are you sure you want to push the changes to the GitHub repo? y/n\n')
     if answer.lower() == 'y':
         subprocess.run(['git','add', 'tasks.json'])
@@ -49,18 +49,18 @@ def syncTasks():
 
 def main():
     while True:
-        mainMenu()
+        main_menu()
         option = input("\nSelect option: ")
 
         match option:
             case '1':
-                listTasks()
+                list_tasks()
             case '2':
-                addTask()
+                add_task()
             case '3':
-                deleteTask()
+                delete_task()
             case '4':
-                syncTasks()
+                sync_tasks()
             case '5':
                 exit()
             case _:

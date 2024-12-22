@@ -3,56 +3,56 @@ import json
 
 taskfile = 'tasks.json'
 
-def createFile():
-    localTaskFile = taskfile
-    if not os.path.exists(localTaskFile):
-        with open(localTaskFile, 'w') as JSONTasks:
-            JSONTasks.write('[]')
+def create_file():
+    local_taskFile = taskfile
+    if not os.path.exists(local_taskFile):
+        with open(local_taskFile, 'w') as JSON_tasks:
+            JSON_tasks.write('[]')
          
 
-def getTasks() -> list[str]:
-    createFile()
-    with open(taskfile, 'r') as JSONTasks:
-        return json.load(JSONTasks)
+def get_tasks() -> list[str]:
+    create_file()
+    with open(taskfile, 'r') as JSON_tasks:
+        return json.load(JSON_tasks)
 
-def writeChanges(tasks : list[str]):
-    with open(taskfile, 'w') as JSONTasks:
-            json.dump(tasks, JSONTasks, indent=2)
+def write_changes(tasks : list[str]):
+    with open(taskfile, 'w') as JSON_tasks:
+            json.dump(tasks, JSON_tasks, indent=2)
 
-def addTask(newTask : str):
-    tasks = getTasks()
-    if newTask in tasks:
-        print(f'\nThe task {newTask} already exists')
+def add_task(new_task : str):
+    tasks = get_tasks()
+    if new_task in tasks:
+        print(f'\nThe task {new_task} already exists')
     else: 
-        tasks.append(newTask)
-        writeChanges(tasks)
-        print(f'\nAdded {newTask} to the list')
+        tasks.append(new_task)
+        write_changes(tasks)
+        print(f'\nAdded {new_task} to the list')
 
 
-def deleteTask():
-    tasks = getTasks()
+def delete_task():
+    tasks = get_tasks()
     if len(tasks) == 0:
         input('\nNo task to delete.')
         return
-    taskToDelete = input('Enter a what task to delete from the list:\n\n')
-    if taskToDelete.isdigit():
-        taskToDelete = int(taskToDelete)
-        if len(tasks) < taskToDelete:
-            input(f'\nTask number {taskToDelete} does not exist.')
+    task_to_delete = input('Enter a what task to delete from the list:\n\n')
+    if task_to_delete.isdigit():
+        task_to_delete = int(task_to_delete)
+        if len(tasks) < task_to_delete:
+            input(f'\nTask number {task_to_delete} does not exist.')
             return
-        deletedTask = tasks[taskToDelete-1]
-        print(f'Deleting task {taskToDelete}. {deletedTask}')
-        tasks.pop(taskToDelete - 1)
-        writeChanges(tasks)
+        deleted_task = tasks[task_to_delete-1]
+        print(f'Deleting task {task_to_delete}. {deleted_task}')
+        tasks.pop(task_to_delete - 1)
+        write_changes(tasks)
         input(f'\nTask was successffully deleted.')
     else:
         for i in range(len(tasks)):
-            if tasks[i].lower() == taskToDelete.lower():
-                print(f'Deleting task {i + 1}. {taskToDelete}')
+            if tasks[i].lower() == task_to_delete.lower():
+                print(f'Deleting task {i + 1}. {task_to_delete}')
                 tasks.pop(i)
-                writeChanges(tasks)
+                write_changes(tasks)
                 print(f'\nTask was successffully deleted.')
                 return
         else:
-            print(f'The task {taskToDelete} does not exist.')
+            print(f'The task {task_to_delete} does not exist.')
 
